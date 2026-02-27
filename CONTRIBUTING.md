@@ -1,18 +1,22 @@
 # Contributing
 
-Contributions are welcome. By participating, you agree to maintain a respectful and constructive environment.
+> **This project was discontinued in March 2013 and is no longer actively maintained.**
+> The repository is preserved as a historical reference. No new features or bug fixes are planned.
 
-For coding standards, testing patterns, architecture guidelines, commit conventions, and all
-development practices, refer to the **[Development Guide](https://github.com/rios0rios0/guide/wiki)**.
+## Historical Build Information
 
-## Prerequisites
+This project was built using the following tools and technologies:
 
-- A text editor or IDE
+- **Language:** Object Pascal (Delphi 7) — pure Win32 API, zero VCL
+- **IDE:** Borland Delphi 7
+- **APIs:** `Windows.pas`, `Messages.pas` (kernel32, user32, gdi32, comctl32)
+- **UI:** Raw `CreateWindowExA` controls (ListBox, Edit, Button, Static, GroupBox)
+- **Theming:** XP Manifest (Common Controls 6.0) with custom `WM_CTLCOLOR*` dark theme
 
-## Development Workflow
+### Build Steps (Historical)
 
-1. Fork and clone the repository
-2. Create a branch: `git checkout -b feat/my-change`
-3. Make your changes
-4. Commit following the [commit conventions](https://github.com/rios0rios0/guide/wiki/Life-Cycle/Git-Flow)
-5. Open a pull request against `main`
+1. Open `CS.dpr` in Borland Delphi 7 (or compatible IDE)
+2. Optionally compile resource files first: `brcc32 XPManifest\XPManifest.rc` and `brcc32 ConIcon\ConIcon.rc`
+3. Compile and run (`F9`)
+
+> **Note:** The entire application is a single `.dpr` file with zero runtime library dependencies. `Clear.bat` cleans build artifacts.
