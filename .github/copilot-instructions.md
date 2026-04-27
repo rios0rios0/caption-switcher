@@ -26,6 +26,7 @@ caption-switcher/
 │   └── 64x64.ico                 # Large icon (Alt+Tab, taskbar)
 ├── .github/
 │   └── copilot-instructions.md  # This file
+├── CHANGELOG.md                  # Project changelog (Keep a Changelog format)
 ├── Clear.bat                     # Build artifact cleanup script
 ├── CONTRIBUTING.md               # Historical build information
 ├── LICENSE                       # GNU General Public License v3.0
