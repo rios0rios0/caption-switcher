@@ -16,6 +16,8 @@ Exceptions are acceptable depending on the circumstances (critical bug fixes tha
 
 ## [Unreleased]
 
+## [1.0.2] - 2026-05-04
+
 ### Changed
 
 - refreshed `.github/copilot-instructions.md` to document the `release.yaml` workflow and add missing files to the repository structure tree
