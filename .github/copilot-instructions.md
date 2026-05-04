@@ -25,7 +25,10 @@ caption-switcher/
 │   ├── 32x32.ico                 # Small icon (taskbar, title bar)
 │   └── 64x64.ico                 # Large icon (Alt+Tab, taskbar)
 ├── .github/
-│   └── copilot-instructions.md  # This file
+│   ├── copilot-instructions.md  # This file
+│   └── workflows/
+│       └── release.yaml         # Automated release via reusable workflow
+├── .gitignore                    # Ignores IDE artifacts and build outputs
 ├── CHANGELOG.md                  # Project changelog (Keep a Changelog format)
 ├── Clear.bat                     # Build artifact cleanup script
 ├── CONTRIBUTING.md               # Historical build information
@@ -72,7 +75,9 @@ There is **no automated build system** (no `Makefile`, no CI/CD). Building is do
 
 ## CI/CD Pipeline
 
-**None.** There are no GitHub Actions workflows or any other CI/CD pipelines configured for this repository.
+A single GitHub Actions workflow exists:
+
+- **`.github/workflows/release.yaml`** — triggers on push to `main`, calls a reusable workflow from `rios0rios0/pipelines` to create releases automatically.
 
 ---
 
