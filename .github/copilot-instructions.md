@@ -99,6 +99,7 @@ All application logic resides in `CS.dpr` (~250 lines of procedural Object Pasca
 |-----------------------|---------------------------------------------------------------------|
 | `WindowProc()`        | Main message loop handler (`WM_COMMAND`, `WM_CTLCOLOR*`, `WM_DESTROY`) |
 | `EnumWindowsProc()`   | `EnumWindows` callback; filters visible top-level windows           |
+| `CreateMyClass()`     | Registers the window class via `RegisterClassA`                     |
 | `CreateMyForm()`      | Creates the main window with layered transparency                   |
 | `CreateMyComponent()` | Generic factory for Win32 controls (buttons, listbox, edits, labels) |
 | `CreateMyFont()`      | Creates a Times New Roman font (size 14)                            |
@@ -110,7 +111,7 @@ All application logic resides in `CS.dpr` (~250 lines of procedural Object Pasca
 
 `EnumWindowsProc` applies three criteria:
 1. `IsWindowVisible(Wnd)` — only visible windows
-2. `GetWindowLong(Wnd, GWL_HWNDPARENT) = 0` — only top-level windows
+2. `GetWindowLong(Wnd, GWL_HWNDPARENT) = 0` or parent is the desktop — only top-level windows
 3. `(GetWindowLong(Wnd, GWL_EXSTYLE) and WS_EX_TOOLWINDOW) = 0` — excludes toolwindows
 
 ### Custom Dark Theme
