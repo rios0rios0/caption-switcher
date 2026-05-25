@@ -16,6 +16,8 @@ Exceptions are acceptable depending on the circumstances (critical bug fixes tha
 
 ## [Unreleased]
 
+## [1.0.3] - 2026-05-25
+
 ### Changed
 
 - refreshed `.github/copilot-instructions.md` to add missing `CreateMyClass()` procedure and fix incomplete `EnumWindowsProc` filter description
