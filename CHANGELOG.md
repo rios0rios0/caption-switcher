@@ -16,6 +16,8 @@ Exceptions are acceptable depending on the circumstances (critical bug fixes tha
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-08-04
+
 ### Added
 
 - created `CLAUDE.md` to document the Delphi 7 build steps, single-file architecture, and repo-specific conventions for Claude Code
