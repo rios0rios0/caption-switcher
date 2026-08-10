@@ -55,7 +55,7 @@ caption-switcher/
 
 ## Build Commands
 
-There is **no automated build system** (no `Makefile`, no CI/CD). Building is done manually inside Borland Delphi 7.
+There is **no local build tooling** (no `Makefile`, no lint or test setup). Building is done manually inside Borland Delphi 7. The one GitHub Actions workflow (`release.yaml`) does not compile the Delphi source — see [CI/CD Pipeline](#cicd-pipeline) below.
 
 ### Steps (Historical)
 
