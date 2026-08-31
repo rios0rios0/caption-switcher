@@ -16,7 +16,7 @@ No Makefile, no local test/lint tooling — building happens inside Borland Delp
 - Compile/run in the IDE with F9 (or Ctrl+F9 to compile only).
 - `Clear.bat` deletes Delphi build artifacts (`.dcu`, `.opt`, `.dof`, `.cfg`, etc.). Never commit build outputs — `.gitignore` covers them.
 
-CI (`.github/workflows/release.yaml`) only calls the reusable `rios0rios0/pipelines` release workflow on push to `main`; it does not build the Delphi source.
+CI lives in `.github/workflows/` and only calls reusable `rios0rios0/pipelines` workflows — `release.yaml` runs the release on push to `main`; `claude-review.yaml` and `claude-mention.yaml` drive Claude's PR review and `@claude` responder. None of them build the Delphi source.
 
 ## Architecture invariants
 
