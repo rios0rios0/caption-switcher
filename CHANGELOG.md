@@ -22,6 +22,12 @@ Exceptions are acceptable depending on the circumstances (critical bug fixes tha
 
 ## [Unreleased]
 
+## [1.3.1] - 2026-09-01
+
+### Changed
+
+- refreshed `CLAUDE.md` and `.github/copilot-instructions.md` to document the added `claude-review.yaml` and `claude-mention.yaml` workflows alongside `release.yaml`, correcting the copilot file's claim that a single workflow exists
+
 ## [1.3.0] - 2026-08-28
 
 ### Added
