@@ -27,7 +27,9 @@ caption-switcher/
 ├── .github/
 │   ├── copilot-instructions.md  # This file
 │   └── workflows/
-│       └── release.yaml         # Automated release via reusable workflow
+│       ├── release.yaml         # Automated release via reusable workflow
+│       ├── claude-review.yaml   # Claude PR code review via reusable workflow
+│       └── claude-mention.yaml  # Claude @-mention responder via reusable workflow
 ├── .gitignore                    # Ignores IDE artifacts and build outputs
 ├── CHANGELOG.md                  # Project changelog (Keep a Changelog format)
 ├── Clear.bat                     # Build artifact cleanup script
@@ -55,7 +57,7 @@ caption-switcher/
 
 ## Build Commands
 
-There is **no local build tooling** (no `Makefile`, no lint or test setup). Building is done manually inside Borland Delphi 7. The one GitHub Actions workflow (`release.yaml`) does not compile the Delphi source — see [CI/CD Pipeline](#cicd-pipeline) below.
+There is **no local build tooling** (no `Makefile`, no lint or test setup). Building is done manually inside Borland Delphi 7. None of the GitHub Actions workflows compile the Delphi source — see [CI/CD Pipeline](#cicd-pipeline) below.
 
 ### Steps (Historical)
 
@@ -75,9 +77,13 @@ There is **no local build tooling** (no `Makefile`, no lint or test setup). Buil
 
 ## CI/CD Pipeline
 
-A single GitHub Actions workflow exists:
+Three GitHub Actions workflows exist, each delegating to a reusable workflow in `rios0rios0/pipelines`:
 
-- **`.github/workflows/release.yaml`** — triggers on push to `main`, calls a reusable workflow from `rios0rios0/pipelines` to create releases automatically.
+- **`.github/workflows/release.yaml`** — triggers on push to `main`, creating releases automatically.
+- **`.github/workflows/claude-review.yaml`** — runs Claude's automated code review on pull requests.
+- **`.github/workflows/claude-mention.yaml`** — responds to `@claude` mentions in issues and pull-request comments.
+
+None of them compile the Delphi source.
 
 ---
 
