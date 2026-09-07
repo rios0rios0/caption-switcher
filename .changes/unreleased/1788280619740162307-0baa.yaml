@@ -1,0 +1,3 @@
+kind: 'Changed'
+body: 'replaced the matchable credential shapes in the code-review skill''s secret-hygiene bullet with inert, scanner-safe wording'
+time: '2026-09-07T07:33:00.000000000Z'
