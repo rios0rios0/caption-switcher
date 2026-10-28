@@ -26,12 +26,20 @@ caption-switcher/
 │   └── 64x64.ico                 # Large icon (Alt+Tab, taskbar)
 ├── .github/
 │   ├── copilot-instructions.md  # This file
+│   ├── skills/
+│   │   └── code-review/
+│   │       └── SKILL.md         # Repo-tailored PR review skill
 │   └── workflows/
+│       ├── checks.yaml          # PR basic checks (rebase status, changelog fragment) via reusable workflow
 │       ├── release.yaml         # Automated release via reusable workflow
 │       ├── claude-review.yaml   # Claude PR code review via reusable workflow
 │       └── claude-mention.yaml  # Claude @-mention responder via reusable workflow
-├── .gitignore                    # Ignores IDE artifacts and build outputs
-├── CHANGELOG.md                  # Project changelog (Keep a Changelog format)
+├── .changes/
+│   └── unreleased/               # chlog fragments, compiled into CHANGELOG.md on release
+├── .gitignore                    # Java/IDE template — lists no Delphi build outputs
+├── AGENTS.md                     # Shared AI agent instructions
+├── CHANGELOG.md                  # Generated from chlog fragments (Keep a Changelog format)
+├── CLAUDE.md                     # Contains only `@AGENTS.md`
 ├── Clear.bat                     # Build artifact cleanup script
 ├── CONTRIBUTING.md               # Historical build information
 ├── LICENSE                       # GNU General Public License v3.0
@@ -62,7 +70,7 @@ There is **no local build tooling** (no `Makefile`, no lint or test setup). Buil
 ### Steps (Historical)
 
 1. Open `CS.dpr` in Borland Delphi 7 (or a compatible IDE)
-2. *(Optional)* Compile resources first using the Borland Resource Compiler:
+2. Compile resources first using the Borland Resource Compiler. `XPManifest.res` is required: `CS.dpr` names only the `.res`, and no `.res` is committed. The `ConIcon` directive uses the two-argument `{$R 'ConIcon\ConIcon.res' 'ConIcon\ConIcon.rc'}` form:
    ```bat
    brcc32 XPManifest\XPManifest.rc
    brcc32 ConIcon\ConIcon.rc
@@ -71,14 +79,15 @@ There is **no local build tooling** (no `Makefile`, no lint or test setup). Buil
 
 ### Cleanup
 
-`Clear.bat` removes Delphi build artifacts (`.dcu`, `.opt`, `.dsm`, `.cfg`, `~*`).
+`Clear.bat` removes Delphi build artifacts (`.dcu`, `.opt`, `.dsm`, `.dsk`, `.cfg`, `.dof`, `*.~??` backups, …) from the repository root. It leaves the compiled `.exe` and `.res`.
 
 ---
 
 ## CI/CD Pipeline
 
-Three GitHub Actions workflows exist, each delegating to a reusable workflow in `rios0rios0/pipelines`:
+Four GitHub Actions workflows exist, each delegating to a reusable workflow in `rios0rios0/pipelines`:
 
+- **`.github/workflows/checks.yaml`** — runs the shared basic checks (rebase status, changelog fragment present) on pull requests to `main`.
 - **`.github/workflows/release.yaml`** — triggers on push to `main`, creating releases automatically.
 - **`.github/workflows/claude-review.yaml`** — runs Claude's automated code review on pull requests.
 - **`.github/workflows/claude-mention.yaml`** — responds to `@claude` mentions in issues and pull-request comments.
@@ -108,7 +117,7 @@ All application logic resides in `CS.dpr` (~250 lines of procedural Object Pasca
 | `CreateMyClass()`     | Registers the window class via `RegisterClassA`                     |
 | `CreateMyForm()`      | Creates the main window with layered transparency                   |
 | `CreateMyComponent()` | Generic factory for Win32 controls (buttons, listbox, edits, labels) |
-| `CreateMyFont()`      | Creates a Times New Roman font (size 14)                            |
+| `CreateMyFont()`      | `CreateFontA` wrapper; called once with Times New Roman, height `-14` |
 | `GetText()`           | Reads window caption text                                           |
 | `SetFormIcons()`      | Loads small/large icons from embedded resources                     |
 | `XPManifest()`        | Initializes Common Controls 6.0 for XP visual styles               |
@@ -166,7 +175,7 @@ Implemented via Win32 color messages:
 - Global variables for all window handles (no encapsulation)
 - Sparse comments; code is intended to be self-documenting
 - 2-space indentation (inconsistent in places)
-- No error handling beyond `try/except` in `EnumWindowsProc`
+- The only `try/except` is in `EnumWindowsProc`; elsewhere, error handling is limited to the empty-field and `FindWindowA` checks behind the Setar button
 
 ---
 
@@ -177,7 +186,7 @@ Since this is a **historical, discontinued project**, no active development work
 1. Edit `CS.dpr` (and optionally resource files) in a text editor or Delphi 7 IDE
 2. Recompile using Borland Delphi 7 if a binary output is needed
 3. Run `Clear.bat` to remove Delphi build artifacts before committing
-4. Commit only source files — never commit `.exe`, `.dcu`, `.opt`, or other build outputs (see `.gitignore`)
+4. Commit only source files — never commit `.exe`, `.res`, `.dcu`, `.opt`, or other build outputs. `.gitignore` does not list them, so check `git status`
 
 ---
 

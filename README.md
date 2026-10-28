@@ -78,9 +78,9 @@ The application window ("Caption Switcher v1.0", 346x324 pixels) is divided into
 
 ## Installation
 
-1. Open `CS.dpr` in Borland Delphi 7 (or a compatible IDE)
-2. Compile the project (Ctrl+F9)
-3. Optionally, compile the resource files first: `brcc32 XPManifest\XPManifest.rc` and `brcc32 ConIcon\ConIcon.rc`
+1. Compile the resource files: `brcc32 XPManifest\XPManifest.rc` and `brcc32 ConIcon\ConIcon.rc` (no `.res` is committed, and `CS.dpr` links `XPManifest\XPManifest.res` directly)
+2. Open `CS.dpr` in Borland Delphi 7 (or a compatible IDE)
+3. Compile the project (Ctrl+F9)
 
 ## Technical Details
 

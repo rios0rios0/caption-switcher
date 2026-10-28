@@ -1,0 +1,3 @@
+kind: 'Changed'
+body: 'refreshed `AGENTS.md`, `.github/copilot-instructions.md`, the `code-review` skill, `README.md`, and `CONTRIBUTING.md` to document the `checks.yaml` workflow, mark compiling `XPManifest.rc` as required, correct what `Clear.bat` deletes and that `.gitignore` lists no Delphi build outputs, and point at `AGENTS.md` instead of `CLAUDE.md`'
+time: '2026-10-28T22:28:01.162774344Z'

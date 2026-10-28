@@ -1,6 +1,6 @@
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to AI coding agents (Claude Code, Codex, Cursor, GitHub Copilot) when working with code in this repository.
 
 ## What this is
 
@@ -12,11 +12,11 @@ The entire program is `CS.dpr` (~250 lines, procedural). `README.md` documents f
 
 No Makefile, no local test/lint tooling — building happens inside Borland Delphi 7.
 
-- Resources must be compiled to `.res` before the `.dpr` will link: `brcc32 XPManifest\XPManifest.rc` and `brcc32 ConIcon\ConIcon.rc`. The `{$R}` directives at the top of `CS.dpr` reference the resulting `.res` files, not the `.rc`.
+- Compile resources before the first build: `brcc32 XPManifest\XPManifest.rc` and `brcc32 ConIcon\ConIcon.rc`. `{$R XPManifest\XPManifest.res}` in `CS.dpr` names only the `.res`, and no `.res` is committed, so the link fails without it. The `ConIcon` directive uses the two-argument form `{$R 'ConIcon\ConIcon.res' 'ConIcon\ConIcon.rc'}`.
 - Compile/run in the IDE with F9 (or Ctrl+F9 to compile only).
-- `Clear.bat` deletes Delphi build artifacts (`.dcu`, `.opt`, `.dof`, `.cfg`, etc.). Never commit build outputs — `.gitignore` covers them.
+- `Clear.bat` deletes Delphi build artifacts (`.dcu`, `.opt`, `.dof`, `.cfg`, `*.~??` backups, etc.) but leaves the compiled `.exe` and `.res`. Never commit build outputs — `.gitignore` is a Java/IDE template that lists none of them, so check `git status` before committing.
 
-CI lives in `.github/workflows/` and only calls reusable `rios0rios0/pipelines` workflows — `release.yaml` runs the release on push to `main`; `claude-review.yaml` and `claude-mention.yaml` drive Claude's PR review and `@claude` responder. None of them build the Delphi source.
+CI lives in `.github/workflows/` and only calls reusable `rios0rios0/pipelines` workflows — `checks.yaml` runs the shared basic checks (rebase status, changelog fragment present) on pull requests to `main`; `release.yaml` runs the release on push to `main`; `claude-review.yaml` and `claude-mention.yaml` drive Claude's PR review and `@claude` responder. None of them build the Delphi source.
 
 ## Architecture invariants
 

@@ -20,7 +20,7 @@ The canonical engineering standards live in the
 repo-tailored index into that guide plus the rules that only apply here. Precedence, highest
 first:
 
-1. This repository's `.github/copilot-instructions.md`, `CLAUDE.md`, and `CONTRIBUTING.md` —
+1. This repository's `.github/copilot-instructions.md`, `AGENTS.md`, and `CONTRIBUTING.md` —
    they describe *this* codebase and its load-bearing invariants.
 2. The **rios0rios0/guide** wiki — the shared standard.
 3. General language idiom.
@@ -65,11 +65,11 @@ them before the generic ones.
 
 - **Treat this as an archive.** No refactoring, no reformatting, no OOP, no new dependencies. Changes worth making are documentation fixes, resource or metadata corrections, and CI adjustments. A pull request that rewrites `CS.dpr` should be questioned before it is reviewed line by line.
 - **The existing conventions are the standard here**: Hungarian-prefixed window handles (`hFrm`, `hLst`, `hBtnSetar`, `hEdtNovo`, `hFont`), Win32 type aliases used directly (`HWND`, `DWORD`, `TMsg`, `HBRUSH`), procedural code with global handles, and 2-space indentation. New code matches them.
-- **`EnumWindowsProc` is the only place with error handling** (`try/except`). Any Win32 call added elsewhere must check its return value rather than assuming success — an unchecked `GetWindowText` on a window that closed mid-enumeration reads uninitialised memory.
+- **`EnumWindowsProc` holds the only `try/except`**; elsewhere the only checks are the empty-field and `FindWindowA` result checks behind the Setar button. Any Win32 call added elsewhere must check its return value rather than assuming success — an unchecked `GetWindowText` on a window that closed mid-enumeration reads uninitialised memory.
 - **Caption text is bounded.** `SetWindowText`/`GetWindowText` work on fixed buffers; a length that is not clamped is a buffer overrun in a program with no protections.
 - **Resources are compiled separately.** `XPManifest/` gives Common Controls 6.0 and `ConIcon/` the icons — both are built with `brcc32` before compiling, and a resource change means regenerating the `.res`.
 - **There is no build or test tooling and the release workflow does not compile the Delphi source.** Do not ask for `make lint`, a test suite, or a CI compile step; verification is opening `CS.dpr` in Delphi 7 and pressing F9.
-- **`Clear.bat` defines what is build output** (`.dcu`, `.opt`, `.dsm`, `.cfg`, `~*`) — none of it belongs in a commit.
+- **Build output never belongs in a commit**: everything `Clear.bat` deletes (`.dcu`, `.opt`, `.dsm`, `.dsk`, `.cfg`, `.dof`, `*.~??` backups, …) plus the compiled `.exe` and `.res`, which it leaves behind. `.gitignore` is a Java/IDE template that lists none of them, so it will not catch a committed artifact.
 
 ### Commands a reviewer should be able to quote
 
@@ -109,7 +109,7 @@ hand.
 - Fragment bodies start with a lowercase verb in simple past tense, capitalise proper nouns
   (GitHub, Go, Docker), and wrap code identifiers and versions in backticks.
 - `README.md` is updated whenever usage, setup, configuration, or architecture changes;
-  `.github/copilot-instructions.md` and `CLAUDE.md` whenever the workflow, commands, or
+  `.github/copilot-instructions.md` and `AGENTS.md` whenever the workflow, commands, or
   structure changes. Documentation and code ship in one commit.
 
 ## Git Flow and pull-request hygiene
@@ -175,7 +175,7 @@ A review that raises noise gets ignored. Do not report these:
 ### Change-control checklist
 - [ ] Changelog entry present for every behavioural change
 - [ ] `README.md` updated if usage, setup, or architecture changed
-- [ ] `.github/copilot-instructions.md` and `CLAUDE.md` updated if the workflow, commands, or structure changed
+- [ ] `.github/copilot-instructions.md` and `AGENTS.md` updated if the workflow, commands, or structure changed
 - [ ] Commit messages follow `type(SCOPE): message` in simple past tense
 - [ ] Breaking changes flagged in the commit footer, the changelog, and the PR description
 
@@ -188,7 +188,7 @@ A review that raises noise gets ignored. Do not report these:
 | Severity       | Use for                                                                                                                            |
 |----------------|------------------------------------------------------------------------------------------------------------------------------------|
 | **Critical**   | Broken dependency direction, a leaked secret, an injection or authentication flaw, a missing changelog entry, a banned mock library, a load-bearing invariant broken, a test deleted rather than fixed. |
-| **Warning**    | Naming that departs from the guide, a missing test for a new branch of logic, an unexplained magic value, a stale README or instructions file, a `switch` that should be a map. |
+| **Warning**    | Naming that departs from the guide, an unexplained magic value, a stale README or instructions file, a `switch` that should be a map. |
 | **Suggestion** | Readability, consistency with neighbouring modules, and performance ideas that no rule mandates.                                     |
 
 Rank findings most severe first, and state plainly when nothing blocks the merge — an empty
