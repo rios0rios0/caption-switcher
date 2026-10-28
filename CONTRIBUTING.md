@@ -16,7 +16,7 @@ This project was built using the following tools and technologies:
 ### Build Steps (Historical)
 
 1. Open `CS.dpr` in Borland Delphi 7 (or compatible IDE)
-2. Optionally compile resource files first: `brcc32 XPManifest\XPManifest.rc` and `brcc32 ConIcon\ConIcon.rc`
+2. Compile resource files first: `brcc32 XPManifest\XPManifest.rc` and `brcc32 ConIcon\ConIcon.rc` (no `.res` is committed, and `CS.dpr` links `XPManifest\XPManifest.res` directly)
 3. Compile and run (`F9`)
 
 > **Note:** The entire application is a single `.dpr` file with zero runtime library dependencies. `Clear.bat` cleans build artifacts.
