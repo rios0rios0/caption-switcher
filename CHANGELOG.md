@@ -22,6 +22,13 @@ Exceptions are acceptable depending on the circumstances (critical bug fixes tha
 
 ## [Unreleased]
 
+## [1.4.2] - 2026-11-04
+
+### Changed
+
+- moved the agent instructions from `CLAUDE.md` to `AGENTS.md`, keeping a `CLAUDE.md` that imports it
+- refreshed `AGENTS.md`, `.github/copilot-instructions.md`, the `code-review` skill, `README.md`, and `CONTRIBUTING.md` to document the `checks.yaml` workflow, mark compiling `XPManifest.rc` as required, correct what `Clear.bat` deletes and that `.gitignore` lists no Delphi build outputs, and point at `AGENTS.md` instead of `CLAUDE.md`
+
 ## [1.4.1] - 2026-09-08
 
 ### Changed
